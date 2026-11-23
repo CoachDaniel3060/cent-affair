@@ -1,0 +1,195 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Discover your signature scent at CENT AFFAIR. Explore premium fragrances for every occasion.">
+  <title>CENT AFFAIR | The Art of Fragrance</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="announcement">
+    THE ART OF FRAGRANCE — DISCOVER YOUR SIGNATURE SCENT
+  </div>
+
+  <header class="header">
+    <button class="menu-toggle" id="menuToggle" aria-label="Open navigation">☰</button>
+
+    <a href="#" class="logo">
+      <span>CENT AFFAIR</span>
+      <small>THE ART OF FRAGRANCE</small>
+    </a>
+
+    <nav class="nav" id="mainNav">
+      <a href="#home">HOME</a>
+      <a href="#shop">SHOP</a>
+      <a href="#collections">COLLECTIONS</a>
+      <a href="#story">OUR STORY</a>
+      <a href="#contact">CONTACT</a>
+    </nav>
+
+    <button class="bag-button" id="cartButton">
+      BAG <span id="cartCount">0</span>
+    </button>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-content">
+        <p class="eyebrow">A WORLD OF BEAUTIFUL SCENTS</p>
+        <h1>Make Your Presence <em>Unforgettable.</em></h1>
+        <p class="hero-description">
+          Discover fragrances that tell your story.
+          Elegant scents, unforgettable impressions.
+        </p>
+        <div class="hero-actions">
+          <a href="#shop" class="btn btn-gold">SHOP COLLECTION</a>
+          <a href="#story" class="btn btn-outline">OUR STORY</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="benefits">
+      <div>
+        <span>✧</span>
+        <p>CURATED FRAGRANCES</p>
+      </div>
+      <div>
+        <span>◇</span>
+        <p>SCENTS FOR EVERY OCCASION</p>
+      </div>
+      <div>
+        <span>✦</span>
+        <p>PERSONAL SERVICE</p>
+      </div>
+    </section>
+
+    <section class="shop section" id="shop">
+      <div class="section-heading">
+        <p class="eyebrow">THE COLLECTION</p>
+        <h2>Find Your <em>Signature Scent</em></h2>
+        <p>Explore fragrances made to leave a lasting impression.</p>
+      </div>
+
+      <div class="shop-controls">
+        <input type="search" id="searchInput" placeholder="Search fragrances..." aria-label="Search fragrances">
+
+        <div class="filter-buttons" id="filterButtons">
+          <button class="filter-btn active" data-filter="All">ALL</button>
+          <button class="filter-btn" data-filter="Men">MEN</button>
+          <button class="filter-btn" data-filter="Women">WOMEN</button>
+          <button class="filter-btn" data-filter="Unisex">UNISEX</button>
+        </div>
+      </div>
+
+      <div class="product-grid" id="productGrid">
+        <!-- Products are displayed by script.js -->
+      </div>
+    </section>
+
+    <section class="collections section" id="collections">
+      <div class="section-heading">
+        <p class="eyebrow">EXPLORE BY MOOD</p>
+        <h2>Discover Our <em>World</em></h2>
+      </div>
+
+      <div class="collection-grid">
+        <a href="#shop" class="collection-card collection-men">
+          <span>01 / FOR HIM</span>
+          <h3>Bold & Refined</h3>
+          <span class="collection-link">EXPLORE COLLECTION ↗</span>
+        </a>
+
+        <a href="#shop" class="collection-card collection-women">
+          <span>02 / FOR HER</span>
+          <h3>Soft & Captivating</h3>
+          <span class="collection-link">EXPLORE COLLECTION ↗</span>
+        </a>
+
+        <a href="#shop" class="collection-card collection-unisex">
+          <span>03 / EVERYONE</span>
+          <h3>Beyond Boundaries</h3>
+          <span class="collection-link">EXPLORE COLLECTION ↗</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="story section" id="story">
+      <div class="story-image"></div>
+      <div class="story-content">
+        <p class="eyebrow">THE CENT AFFAIR EXPERIENCE</p>
+        <h2>More Than A Fragrance. <em>It's An Affair.</em></h2>
+        <p>
+          We believe fragrance is more than something you wear.
+          It is a feeling, a memory and a signature that stays
+          long after you have left the room.
+        </p>
+        <p>
+          At CENT AFFAIR, discover beautiful scents that help
+          you express your individuality and make every moment memorable.
+        </p>
+        <a href="#shop" class="text-link">DISCOVER YOUR SCENT ↗</a>
+      </div>
+    </section>
+
+    <section class="contact section" id="contact">
+      <p class="eyebrow">WE WOULD LOVE TO HEAR FROM YOU</p>
+      <h2>Your Next Favourite Scent <em>Awaits.</em></h2>
+      <p>Need help choosing a fragrance? Let's find the perfect one for you.</p>
+      <a href="https://wa.me/233249964486" target="_blank" rel="noopener" class="btn btn-gold">
+        CHAT WITH US ON WHATSAPP
+      </a>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <a href="#home" class="logo footer-logo">
+      <span>CENT AFFAIR</span>
+      <small>THE ART OF FRAGRANCE</small>
+    </a>
+    <p>THE ART OF LEAVING A LASTING IMPRESSION.</p>
+    <p>© <span id="year"></span> CENT AFFAIR. ALL RIGHTS RESERVED.</p>
+  </footer>
+
+  <a href="https://wa.me/233249964486" class="whatsapp-float" target="_blank" rel="noopener" aria-label="Chat with CENT AFFAIR on WhatsApp">
+    WhatsApp
+  </a>
+
+  <!-- Shopping cart -->
+  <div class="overlay" id="cartOverlay"></div>
+  <aside class="cart-drawer" id="cartDrawer" aria-label="Shopping bag">
+    <div class="drawer-header">
+      <h2>Your Shopping Bag</h2>
+      <button id="closeCart" aria-label="Close shopping bag">✕</button>
+    </div>
+    <div id="cartItems" class="cart-items"></div>
+    <div class="cart-footer">
+      <div class="cart-total">
+        <span>Subtotal</span>
+        <strong id="cartTotal">GH₵0.00</strong>
+      </div>
+      <button class="btn btn-gold checkout-btn" id="checkoutButton">
+        ORDER VIA WHATSAPP
+      </button>
+      <p>Delivery details will be confirmed on WhatsApp.</p>
+    </div>
+  </aside>
+
+  <!-- Product details -->
+  <div class="modal-overlay" id="productModal">
+    <div class="product-modal" role="dialog" aria-modal="true" aria-label="Product details">
+      <button class="modal-close" id="closeModal" aria-label="Close">✕</button>
+      <div id="modalContent"></div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
