@@ -1,207 +1,442 @@
 
+/* ==========================================
+   CENT AFFAIR — FINAL STORE SCRIPT
+   THE ART OF FRAGRANCE
+   ========================================== */
+
+"use strict";
+
 const STORE = {
   name: "CENT AFFAIR",
   whatsapp: "233249964486",
   currency: "GH₵"
 };
 
+const FALLBACK_IMAGE =
+  "https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=1000&q=85";
+
+const CART_KEY = "cent-affair-shopping-cart";
+
+/* ==========================================
+   PRODUCT CATALOGUE
+   Sample products and prices — update with
+   the actual catalogue before accepting orders.
+   ========================================== */
+
 const products = [
-  { id: 1, name: "Oud Elegance", category: "Men", price: 350, size: "100ml", badge: "BESTSELLER", description: "Rich oud, warm woods and amber.", notes: "Oud, Amber, Sandalwood", image: "https://images.unsplash.com/photo-1594035910387-fea47794261f?w=700&q=85" },
-  { id: 2, name: "Rose Velvet", category: "Women", price: 280, size: "100ml", badge: "POPULAR", description: "A romantic fragrance with a soft floral finish.", notes: "Rose, Vanilla, Musk", image: "https://images.unsplash.com/photo-1547887538-e3a2f32cb1cc?w=700&q=85" },
-  { id: 3, name: "Midnight Essence", category: "Men", price: 320, size: "100ml", badge: "NEW", description: "A confident scent with a mysterious character.", notes: "Spices, Cedarwood, Amber", image: "https://images.unsplash.com/photo-1615634260167-c8cdede054de?w=700&q=85" },
-  { id: 4, name: "Golden Aura", category: "Women", price: 390, size: "100ml", badge: "LUXURY", description: "An elegant fragrance with a warm golden touch.", notes: "Jasmine, Vanilla, Amber", image: "https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=700&q=85" },
-  { id: 5, name: "Royal Oud", category: "Unisex", price: 420, size: "100ml", badge: "PREMIUM", description: "Deep woody notes for an unforgettable impression.", notes: "Oud, Leather, Musk", image: "https://images.unsplash.com/photo-1595425970377-c9703cf48b6d?w=700&q=85" },
-  { id: 6, name: "Bloom Desire", category: "Women", price: 250, size: "100ml", badge: "FAVOURITE", description: "Fresh florals with a beautiful feminine finish.", notes: "Peony, Rose, White Musk", image: "https://images.unsplash.com/photo-1590736969955-71cc94901144?w=700&q=85" },
-  { id: 7, name: "Black Imperial", category: "Men", price: 380, size: "100ml", badge: "EXCLUSIVE", description: "Bold and sophisticated with a powerful trail.", notes: "Black Pepper, Leather, Woods", image: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=700&q=85" },
-  { id: 8, name: "Vanilla Dreams", category: "Women", price: 270, size: "100ml", badge: "POPULAR", description: "A creamy, comforting and beautifully sweet scent.", notes: "Vanilla, Caramel, Musk", image: "https://images.unsplash.com/photo-1594035910387-fea47794261f?w=700&q=85" },
-  { id: 9, name: "Amber Nights", category: "Unisex", price: 330, size: "100ml", badge: "SIGNATURE", description: "Warm amber and spice create an elegant presence.", notes: "Amber, Cinnamon, Patchouli", image: "https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=700&q=85" },
-  { id: 10, name: "Ocean Mist", category: "Men", price: 240, size: "100ml", badge: "FRESH", description: "A refreshing fragrance inspired by the ocean.", notes: "Marine Notes, Citrus, Musk", image: "https://images.unsplash.com/photo-1615634260167-c8cdede054de?w=700&q=85" },
-  { id: 11, name: "Silk Blossom", category: "Women", price: 310, size: "100ml", badge: "ELEGANT", description: "Delicate florals with a soft, sensual base.", notes: "White Flowers, Rose, Sandalwood", image: "https://images.unsplash.com/photo-1547887538-e3a2f32cb1cc?w=700&q=85" },
-  { id: 12, name: "Noir Essence", category: "Unisex", price: 360, size: "100ml", badge: "PREMIUM", description: "A balanced fragrance for every occasion.", notes: "Vetiver, Amber, Musk", image: "https://images.unsplash.com/photo-1595425970377-c9703cf48b6d?w=700&q=85" },
-  { id: 13, name: "Royal Musk", category: "Unisex", price: 290, size: "100ml", badge: "POPULAR", description: "Clean, smooth musk with a luxurious finish.", notes: "White Musk, Sandalwood, Amber", image: "https://images.unsplash.com/photo-1594035910387-fea47794261f?w=700&q=85" },
-  { id: 14, name: "Velvet Oud", category: "Men", price: 410, size: "100ml", badge: "LUXURY", description: "A rich oriental scent with exceptional depth.", notes: "Oud, Saffron, Leather", image: "https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=700&q=85" },
-  { id: 15, name: "Sweet Temptation", category: "Women", price: 260, size: "100ml", badge: "NEW", description: "A playful fragrance with a sweet character.", notes: "Pear, Vanilla, Tonka Bean", image: "https://images.unsplash.com/photo-1590736969955-71cc94901144?w=700&q=85" },
-  { id: 16, name: "The Signature", category: "Unisex", price: 450, size: "100ml", badge: "EXCLUSIVE", description: "A distinctive blend for memorable moments.", notes: "Bergamot, Amber, Cedarwood", image: "https://images.unsplash.com/photo-1595425970377-c9703cf48b6d?w=700&q=85" }
+  {
+    id: 1,
+    name: "Midnight Oud",
+    category: "Men",
+    price: 350,
+    badge: "BESTSELLER",
+    description: "A bold fragrance with rich oud and warm woody notes.",
+    image: "https://images.unsplash.com/photo-1739190940453-20900e9d18fb?auto=format&fit=crop&w=800&q=85"
+  },
+  {
+    id: 2,
+    name: "Golden Bloom",
+    category: "Women",
+    price: 280,
+    badge: "POPULAR",
+    description: "A beautiful floral fragrance with a soft, elegant finish.",
+    image: "https://images.unsplash.com/photo-1680607621633-164ca52ed65b?auto=format&fit=crop&w=800&q=85"
+  },
+  {
+    id: 3,
+    name: "Velvet Rose",
+    category: "Women",
+    price: 320,
+    badge: "",
+    description: "Romantic rose notes with a luxurious warm base.",
+    image: "https://images.unsplash.com/photo-1707539159789-3a5460e08d68?auto=format&fit=crop&w=800&q=85"
+  },
+  {
+    id: 4,
+    name: "Royal Essence",
+    category: "Men",
+    price: 400,
+    badge: "LUXURY",
+    description: "A confident masculine scent with a refined character.",
+    image: "https://images.unsplash.com/photo-1716978499366-d5a84bf1fe70?auto=format&fit=crop&w=800&q=85"
+  },
+  {
+    id: 5,
+    name: "Amber Touch",
+    category: "Unisex",
+    price: 300,
+    badge: "",
+    description: "Warm amber notes for a memorable everyday fragrance.",
+    image: "https://images.unsplash.com/photo-1635796332668-78830169097d?auto=format&fit=crop&w=800&q=85"
+  },
+  {
+    id: 6,
+    name: "Blush Affair",
+    category: "Women",
+    price: 260,
+    badge: "NEW",
+    description: "A delicate and feminine scent for special moments.",
+    image: "https://images.unsplash.com/photo-1773527142304-58116364b8a1?auto=format&fit=crop&w=800&q=85"
+  },
+  {
+    id: 7,
+    name: "Ocean Noir",
+    category: "Men",
+    price: 380,
+    badge: "",
+    description: "Fresh aquatic notes meet a sophisticated woody finish.",
+    image: "https://images.unsplash.com/photo-1631573576452-a073df952614?auto=format&fit=crop&w=800&q=85"
+  },
+  {
+    id: 8,
+    name: "Silk Musk",
+    category: "Unisex",
+    price: 250,
+    badge: "",
+    description: "A smooth, clean musk fragrance with understated elegance.",
+    image: "https://images.unsplash.com/photo-1666621630026-862eea07236c?auto=format&fit=crop&w=800&q=85"
+  },
+  {
+    id: 9,
+    name: "Royal Petals",
+    category: "Women",
+    price: 340,
+    badge: "FAVOURITE",
+    description: "A graceful floral fragrance with a lasting impression.",
+    image: "https://images.unsplash.com/photo-1714218723982-95803a4b23d1?auto=format&fit=crop&w=800&q=85"
+  },
+  {
+    id: 10,
+    name: "Black Signature",
+    category: "Men",
+    price: 450,
+    badge: "PREMIUM",
+    description: "A striking fragrance for lovers of bold sophistication.",
+    image: "https://images.unsplash.com/photo-1723391962154-8a2b6299bc09?auto=format&fit=crop&w=800&q=85"
+  },
+  {
+    id: 11,
+    name: "Soft Vanilla",
+    category: "Unisex",
+    price: 290,
+    badge: "",
+    description: "Comforting vanilla notes with a creamy finish.",
+    image: "https://images.unsplash.com/photo-1609749282774-5883a366cdd1?auto=format&fit=crop&w=800&q=85"
+  },
+  {
+    id: 12,
+    name: "Eternal Elegance",
+    category: "Women",
+    price: 370,
+    badge: "EXCLUSIVE",
+    description: "An elegant fragrance designed to leave a lasting impression.",
+    image: FALLBACK_IMAGE
+  }
 ];
 
-const CART_KEY = "cent-affair-new-cart";
+/* ==========================================
+   APPLICATION STATE
+   ========================================== */
 
-let cart = loadCart();
-let currentFilter = "All";
+let cart = [];
+let activeCategory = "all";
+let searchTerm = "";
 
-const $ = id => document.getElementById(id);
-const productGrid = $("productGrid");
-const searchInput = $("searchInput");
-const filterButtons = $("filterButtons");
+try {
+  const savedCart = JSON.parse(localStorage.getItem(CART_KEY));
 
-function money(value) {
-  return `${STORE.currency}${Number(value).toFixed(2)}`;
-}
+  if (Array.isArray(savedCart)) {
+    cart = savedCart
+      .filter(item =>
+        products.some(product => product.id === Number(item.id))
+      )
+      .map(item => {
+        const product = products.find(p => p.id === Number(item.id));
 
-function getProduct(id) {
-  return products.find(product => product.id === Number(id));
-}
-
-function loadCart() {
-  try {
-    const saved = JSON.parse(localStorage.getItem(CART_KEY));
-    if (!Array.isArray(saved)) return [];
-
-    return saved.filter(item =>
-      getProduct(item.id) &&
-      Number.isInteger(Number(item.quantity)) &&
-      Number(item.quantity) > 0
-    ).map(item => ({
-      id: Number(item.id),
-      quantity: Number(item.quantity)
-    }));
-  } catch {
-    return [];
+        return {
+          id: product.id,
+          name: product.name,
+          price: product.price,
+          image: product.image,
+          quantity: Math.max(1, Math.min(99, Number(item.quantity) || 1))
+        };
+      });
   }
+} catch (error) {
+  cart = [];
+}
+
+/* ==========================================
+   GENERAL HELPERS
+   ========================================== */
+
+function $(id) {
+  return document.getElementById(id);
+}
+
+function formatPrice(amount) {
+  return `${STORE.currency} ${Number(amount).toLocaleString("en-GH")}`;
 }
 
 function saveCart() {
-  localStorage.setItem(CART_KEY, JSON.stringify(cart));
+  try {
+    localStorage.setItem(CART_KEY, JSON.stringify(cart));
+  } catch (error) {
+    console.warn("Cart could not be saved.", error);
+  }
 }
 
-function addImageFallback(container, name) {
-  const placeholder = document.createElement("div");
-  placeholder.style.cssText = `
-    width:100%;
-    height:100%;
-    min-height:180px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    flex-direction:column;
-    background:linear-gradient(145deg,#eee6d8,#faf7f0);
-    color:#bd9b62;
-    font-family:Georgia,serif;
-    letter-spacing:3px;
-    text-align:center;
-  `;
+function normalizeCategory(value) {
+  const text = String(value || "")
+    .toLowerCase()
+    .replace(/[^a-z]/g, "");
 
-  const brand = document.createElement("span");
-  brand.textContent = "CENT AFFAIR";
-  brand.style.fontSize = "19px";
+  if (text.includes("unisex")) return "unisex";
+  if (text.includes("women") || text.includes("female")) return "women";
+  if (text === "men" || text.includes("formen") || text.includes("male")) return "men";
+  if (text.includes("all") || text.includes("every")) return "all";
 
-  const caption = document.createElement("small");
-  caption.textContent = name.toUpperCase();
-  caption.style.cssText = "font-size:9px;letter-spacing:2px;margin-top:10px;color:#827c70";
-
-  placeholder.append(brand, caption);
-  container.replaceChildren(placeholder);
+  return text;
 }
 
-function watchImages(container) {
-  container.querySelectorAll("img[data-product-image]").forEach(img => {
-    img.addEventListener("error", () => {
-      const name = img.dataset.name || "Fragrance";
-      addImageFallback(img.parentElement, name);
+function showNotice(message) {
+  let notice = $("storeNotice");
+
+  if (!notice) {
+    notice = document.createElement("div");
+    notice.id = "storeNotice";
+
+    notice.style.cssText = `
+      position:fixed;
+      bottom:85px;
+      left:50%;
+      transform:translateX(-50%);
+      background:#11100e;
+      color:#fffdf9;
+      padding:14px 22px;
+      border:1px solid #c5a36a;
+      border-radius:4px;
+      z-index:99999;
+      font-size:12px;
+      text-align:center;
+      max-width:90%;
+      box-shadow:0 8px 30px rgba(0,0,0,.2);
+    `;
+
+    document.body.appendChild(notice);
+  }
+
+  notice.textContent = message;
+  notice.style.display = "block";
+
+  clearTimeout(notice.timer);
+
+  notice.timer = setTimeout(() => {
+    notice.style.display = "none";
+  }, 2600);
+}
+
+function setImageFallbacks(root = document) {
+  root.querySelectorAll("img[data-fallback]").forEach(img => {
+    if (img.dataset.fallbackReady) return;
+
+    img.dataset.fallbackReady = "true";
+
+    img.addEventListener("error", function () {
+      this.onerror = null;
+      this.src = FALLBACK_IMAGE;
     }, { once: true });
   });
 }
 
-// PRODUCT CATALOGUE
+/* ==========================================
+   PRODUCT FILTERING AND SEARCH
+   ========================================== */
 
 function renderProducts() {
-  const term = searchInput.value.trim().toLowerCase();
+  const grid = $("productGrid");
+  const empty = $("emptyProducts");
+
+  if (!grid) return;
 
   const filtered = products.filter(product => {
-    const categoryMatch =
-      currentFilter === "All" || product.category === currentFilter;
+    const categoryMatches =
+      activeCategory === "all" ||
+      normalizeCategory(product.category) === activeCategory;
 
-    const searchMatch =
-      `${product.name} ${product.description} ${product.notes}`
-        .toLowerCase().includes(term);
+    const term = searchTerm.toLowerCase();
 
-    return categoryMatch && searchMatch;
+    const searchMatches =
+      product.name.toLowerCase().includes(term) ||
+      product.category.toLowerCase().includes(term) ||
+      product.description.toLowerCase().includes(term);
+
+    return categoryMatches && searchMatches;
   });
 
-  if (!filtered.length) {
-    productGrid.innerHTML = `
-      <div class="empty-products">
-        <h3>No fragrances found</h3>
-        <p>Try another search or category.</p>
-      </div>`;
-    return;
-  }
-
-  productGrid.innerHTML = filtered.map(product => `
+  grid.innerHTML = filtered.map(product => `
     <article class="product-card">
       <div class="product-image-wrap">
         <img
           class="product-image"
-          data-product-image
-          data-name="${product.name}"
           src="${product.image}"
-          alt="${product.name}"
+          alt="${product.name} perfume"
           loading="lazy"
+          data-fallback
         >
-        <span class="product-badge">${product.badge}</span>
-        <button class="quick-view" data-action="view" data-id="${product.id}">
-          QUICK VIEW
-        </button>
+
+        ${product.badge
+          ? `<span class="product-badge">${product.badge}</span>`
+          : ""}
       </div>
 
       <div class="product-info">
-        <span class="product-category">${product.category} · ${product.size}</span>
+        <span class="product-category">${product.category}</span>
         <h3 class="product-name">${product.name}</h3>
-        <p class="product-description">${product.description}</p>
-        <div class="product-bottom">
-          <span class="product-price">${money(product.price)}</span>
-          <button class="add-button" data-action="add" data-id="${product.id}">
-            ADD +
+        <p class="product-price">${formatPrice(product.price)}</p>
+
+        <div class="product-actions">
+          <button
+            class="add-button"
+            type="button"
+            onclick="addToCart(${product.id})"
+          >
+            ADD TO BAG
+          </button>
+
+          <button
+            class="quick-view"
+            type="button"
+            onclick="openQuickView(${product.id})"
+          >
+            VIEW
           </button>
         </div>
       </div>
     </article>
   `).join("");
 
-  watchImages(productGrid);
+  if (empty) {
+    empty.style.display = filtered.length ? "none" : "block";
+  }
+
+  setImageFallbacks(grid);
 }
 
-// SEARCH AND FILTERS
+function setActiveFilter(category) {
+  activeCategory = normalizeCategory(category);
 
-searchInput.addEventListener("input", renderProducts);
+  const container = $("filterButtons");
 
-filterButtons.addEventListener("click", event => {
-  const button = event.target.closest("[data-filter]");
-  if (!button) return;
+  if (container) {
+    container.querySelectorAll("button").forEach(button => {
+      const buttonCategory = normalizeCategory(
+        button.dataset.category ||
+        button.dataset.filter ||
+        button.textContent
+      );
 
-  currentFilter = button.dataset.filter;
+      const isActive = buttonCategory === activeCategory;
 
-  filterButtons.querySelectorAll(".filter-btn").forEach(item => {
-    item.classList.toggle("active", item === button);
-  });
+      button.classList.toggle("active", isActive);
+      button.setAttribute("aria-pressed", String(isActive));
+    });
+  }
 
   renderProducts();
-});
+}
 
-// SHOPPING BAG
+function setupFilters() {
+  const container = $("filterButtons");
+
+  if (!container) return;
+
+  container.addEventListener("click", event => {
+    const button = event.target.closest("button");
+
+    if (!button || !container.contains(button)) return;
+
+    const category = normalizeCategory(
+      button.dataset.category ||
+      button.dataset.filter ||
+      button.textContent
+    );
+
+    if (["all", "men", "women", "unisex"].includes(category)) {
+      setActiveFilter(category);
+    }
+  });
+
+  setActiveFilter("all");
+}
+
+function setupSearch() {
+  const search = $("productSearch");
+
+  if (!search) return;
+
+  search.addEventListener("input", event => {
+    searchTerm = event.target.value.trim();
+    renderProducts();
+  });
+}
+
+/* COLLECTION CARDS */
+
+function setupCollections() {
+  document.querySelectorAll("[data-collection]").forEach(card => {
+    card.addEventListener("click", () => {
+      const category = normalizeCategory(card.dataset.collection);
+
+      setActiveFilter(category);
+
+      if ($("productSearch")) {
+        $("productSearch").value = "";
+      }
+
+      searchTerm = "";
+    });
+  });
+}
+
+/* ==========================================
+   SHOPPING CART
+   ========================================== */
 
 function addToCart(id) {
-  const product = getProduct(id);
+  const product = products.find(item => item.id === id);
+
   if (!product) return;
 
-  const existing = cart.find(item => item.id === product.id);
+  const existing = cart.find(item => item.id === id);
 
-  if (existing) existing.quantity++;
-  else cart.push({ id: product.id, quantity: 1 });
+  if (existing) {
+    existing.quantity += 1;
+  } else {
+    cart.push({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      image: product.image,
+      quantity: 1
+    });
+  }
 
   saveCart();
   renderCart();
-  openCart();
+
+  showNotice(`${product.name} added to your bag.`);
 }
 
-function changeQuantity(id, amount) {
-  const item = cart.find(item => item.id === Number(id));
+function changeQuantity(id, change) {
+  const item = cart.find(product => product.id === id);
+
   if (!item) return;
 
-  item.quantity += amount;
+  item.quantity += change;
 
   if (item.quantity <= 0) {
-    cart = cart.filter(item => item.id !== Number(id));
+    cart = cart.filter(product => product.id !== id);
   }
 
   saveCart();
@@ -209,233 +444,394 @@ function changeQuantity(id, amount) {
 }
 
 function removeFromCart(id) {
-  cart = cart.filter(item => item.id !== Number(id));
+  cart = cart.filter(item => item.id !== id);
+
   saveCart();
   renderCart();
+
+  showNotice("Item removed from your bag.");
 }
 
-function calculateTotal() {
-  return cart.reduce((total, item) => {
-    const product = getProduct(item.id);
-    return total + (product ? product.price * item.quantity : 0);
-  }, 0);
+function getCartCount() {
+  return cart.reduce((total, item) => total + item.quantity, 0);
+}
+
+function getCartTotal() {
+  return cart.reduce(
+    (total, item) => total + item.price * item.quantity,
+    0
+  );
 }
 
 function renderCart() {
-  $("cartCount").textContent =
-    cart.reduce((total, item) => total + item.quantity, 0);
+  const items = $("cartItems");
+  const count = $("cartCount");
+  const total = $("cartTotal");
+  const checkoutTotal = $("checkoutTotal");
 
-  $("cartTotal").textContent = money(calculateTotal());
+  if (count) {
+    count.textContent = getCartCount();
+  }
 
-  const container = $("cartItems");
+  if (total) {
+    total.textContent = formatPrice(getCartTotal());
+  }
+
+  if (checkoutTotal) {
+    checkoutTotal.textContent = formatPrice(getCartTotal());
+  }
+
+  if (!items) return;
 
   if (!cart.length) {
-    container.innerHTML = `
+    items.innerHTML = `
       <div class="cart-empty">
-        <h3>Your bag is waiting.</h3>
-        <p>Discover something beautiful and add it here.</p>
-      </div>`;
+        <p>Your shopping bag is currently empty.</p>
+        <p>Discover a fragrance you'll love.</p>
+      </div>
+    `;
+
     return;
   }
 
-  container.innerHTML = cart.map(item => {
-    const product = getProduct(item.id);
-    if (!product) return "";
+  items.innerHTML = cart.map(item => `
+    <div class="cart-item">
+      <img
+        src="${item.image}"
+        alt="${item.name}"
+        data-fallback
+      >
 
-    return `
-      <div class="cart-item">
-        <img
-          data-product-image
-          data-name="${product.name}"
-          src="${product.image}"
-          alt="${product.name}"
-        >
+      <div class="cart-item-info">
+        <h4>${item.name}</h4>
+        <p>${formatPrice(item.price)}</p>
 
-        <div>
-          <h3>${product.name}</h3>
-          <p>${money(product.price)} · ${product.size}</p>
+        <div class="quantity-controls">
+          <button
+            type="button"
+            onclick="changeQuantity(${item.id}, -1)"
+            aria-label="Decrease quantity"
+          >−</button>
 
-          <div class="quantity-controls">
-            <button data-action="decrease" data-id="${product.id}">−</button>
-            <span>${item.quantity}</span>
-            <button data-action="increase" data-id="${product.id}">+</button>
-          </div>
+          <span>${item.quantity}</span>
 
-          <button class="remove-item" data-action="remove" data-id="${product.id}">
-            REMOVE
-          </button>
+          <button
+            type="button"
+            onclick="changeQuantity(${item.id}, 1)"
+            aria-label="Increase quantity"
+          >+</button>
         </div>
+      </div>
 
-        <strong>${money(product.price * item.quantity)}</strong>
-      </div>`;
-  }).join("");
+      <button
+        class="remove-item"
+        type="button"
+        onclick="removeFromCart(${item.id})"
+        aria-label="Remove ${item.name}"
+      >×</button>
+    </div>
+  `).join("");
 
-  watchImages(container);
+  setImageFallbacks(items);
 }
 
-// CART DRAWER
-
-const cartDrawer = $("cartDrawer");
-const cartOverlay = $("cartOverlay");
+/* ==========================================
+   CART DRAWER
+   ========================================== */
 
 function openCart() {
-  cartDrawer.classList.add("open");
-  cartOverlay.classList.add("open");
-  document.body.classList.add("no-scroll");
+  $("cartOverlay")?.classList.add("active");
+  $("cartDrawer")?.classList.add("active");
+
+  document.body.style.overflow = "hidden";
 }
 
 function closeCart() {
-  cartDrawer.classList.remove("open");
-  cartOverlay.classList.remove("open");
-  document.body.classList.remove("no-scroll");
+  $("cartOverlay")?.classList.remove("active");
+  $("cartDrawer")?.classList.remove("active");
+
+  document.body.style.overflow = "";
 }
 
-$("cartButton").addEventListener("click", openCart);
-$("closeCart").addEventListener("click", closeCart);
-cartOverlay.addEventListener("click", closeCart);
+/* ==========================================
+   QUICK VIEW
+   ========================================== */
 
-// PRODUCT QUICK VIEW
+function openQuickView(id) {
+  const product = products.find(item => item.id === id);
+  const modal = $("productModal");
+  const content = $("productModalContent");
 
-const productModal = $("productModal");
-const modalContent = $("modalContent");
+  if (!product || !modal || !content) return;
 
-function openProductModal(id) {
-  const product = getProduct(id);
-  if (!product) return;
-
-  modalContent.innerHTML = `
-    <div class="modal-product-layout">
+  content.innerHTML = `
+    <div class="quick-view-content">
       <img
-        data-product-image
-        data-name="${product.name}"
         src="${product.image}"
         alt="${product.name}"
+        data-fallback
       >
 
       <div>
-        <span class="product-category">${product.category} · ${product.size}</span>
+        <span class="product-category">${product.category}</span>
         <h2>${product.name}</h2>
         <p>${product.description}</p>
-        <p><strong>Fragrance notes:</strong> ${product.notes}</p>
-        <p class="modal-price">${money(product.price)}</p>
-        <button class="btn btn-gold" data-action="modal-add" data-id="${product.id}">
+        <p class="quick-price">${formatPrice(product.price)}</p>
+
+        <button
+          class="add-button"
+          type="button"
+          onclick="addToCart(${product.id}); closeProductModal();"
+        >
           ADD TO BAG
         </button>
       </div>
-    </div>`;
+    </div>
+  `;
 
-  watchImages(modalContent);
-  productModal.classList.add("open");
-  document.body.classList.add("no-scroll");
+  setImageFallbacks(content);
+
+  modal.classList.add("active");
+  document.body.style.overflow = "hidden";
 }
 
 function closeProductModal() {
-  productModal.classList.remove("open");
-  document.body.classList.remove("no-scroll");
+  $("productModal")?.classList.remove("active");
+  document.body.style.overflow = "";
 }
 
-$("closeModal").addEventListener("click", closeProductModal);
+/* ==========================================
+   WHATSAPP CHECKOUT
+   ========================================== */
 
-productModal.addEventListener("click", event => {
-  if (event.target === productModal) closeProductModal();
-});
-
-// ALL PRODUCT AND CART BUTTONS
-
-document.addEventListener("click", event => {
-  const button = event.target.closest("[data-action]");
-  if (!button) return;
-
-  const id = Number(button.dataset.id);
-
-  switch (button.dataset.action) {
-    case "add":
-      addToCart(id);
-      break;
-    case "view":
-      openProductModal(id);
-      break;
-    case "increase":
-      changeQuantity(id, 1);
-      break;
-    case "decrease":
-      changeQuantity(id, -1);
-      break;
-    case "remove":
-      removeFromCart(id);
-      break;
-    case "modal-add":
-      closeProductModal();
-      addToCart(id);
-      break;
-  }
-});
-
-// WHATSAPP CHECKOUT
-
-$("checkoutButton").addEventListener("click", () => {
+function openCheckout() {
   if (!cart.length) {
-    alert("Your shopping bag is empty. Please add a fragrance first.");
+    showNotice("Your shopping bag is empty.");
     return;
   }
 
-  const lines = cart.map(item => {
-    const product = getProduct(item.id);
-    return `${product.name} (${product.size}) x ${item.quantity} = ${money(product.price * item.quantity)}`;
-  });
+  closeCart();
 
-  const message = [
-    `Hello ${STORE.name}!`,
-    "",
-    "I would like to place an order:",
-    "",
-    ...lines,
-    "",
-    `Subtotal: ${money(calculateTotal())}`,
-    "",
-    "Please confirm availability and delivery details.",
-    "Thank you!"
-  ].join("\n");
+  $("checkoutModal")?.classList.add("active");
 
-  const url =
-    `https://wa.me/${STORE.whatsapp}?text=${encodeURIComponent(message)}`;
+  document.body.style.overflow = "hidden";
 
-  window.open(url, "_blank", "noopener,noreferrer");
-});
-
-// MOBILE NAVIGATION
-
-const menuToggle = $("menuToggle");
-const mainNav = $("mainNav");
-
-menuToggle.addEventListener("click", () => {
-  const open = mainNav.classList.toggle("open");
-  menuToggle.textContent = open ? "✕" : "☰";
-  menuToggle.setAttribute("aria-expanded", String(open));
-});
-
-mainNav.querySelectorAll("a").forEach(link => {
-  link.addEventListener("click", () => {
-    mainNav.classList.remove("open");
-    menuToggle.textContent = "☰";
-    menuToggle.setAttribute("aria-expanded", "false");
-  });
-});
-
-// CLOSE PANELS WITH ESCAPE
-
-document.addEventListener("keydown", event => {
-  if (event.key === "Escape") {
-    closeCart();
-    closeProductModal();
-    mainNav.classList.remove("open");
-    menuToggle.textContent = "☰";
+  if ($("checkoutTotal")) {
+    $("checkoutTotal").textContent = formatPrice(getCartTotal());
   }
+}
+
+function closeCheckout() {
+  $("checkoutModal")?.classList.remove("active");
+  document.body.style.overflow = "";
+}
+
+function setupCheckout() {
+  const form = $("checkoutForm");
+
+  if (!form) return;
+
+  form.addEventListener("submit", event => {
+    event.preventDefault();
+
+    if (!cart.length) {
+      showNotice("Your shopping bag is empty.");
+      return;
+    }
+
+    const name = $("customerName")?.value.trim();
+    const phone = $("customerPhone")?.value.trim();
+    const address = $("customerAddress")?.value.trim();
+    const payment = $("paymentMethod")?.value;
+
+    if (!name || !phone || !address || !payment) {
+      showNotice("Please complete all checkout details.");
+      return;
+    }
+
+    if (!/^[0-9+\s()-]{9,18}$/.test(phone)) {
+      showNotice("Please enter a valid phone number.");
+      return;
+    }
+
+    const orderLines = cart.map(item =>
+      `${item.name} x ${item.quantity} — ${formatPrice(item.price * item.quantity)}`
+    );
+
+    const message = [
+      `Hello ${STORE.name}, I would like to place an order.`,
+      "",
+      `Customer: ${name}`,
+      `Phone: ${phone}`,
+      `Delivery Address: ${address}`,
+      `Payment Preference: ${payment}`,
+      "",
+      "ORDER DETAILS:",
+      ...orderLines,
+      "",
+      `TOTAL: ${formatPrice(getCartTotal())}`,
+      "",
+      "Please confirm availability and delivery arrangements. Thank you."
+    ].join("\n");
+
+    const whatsappURL =
+      `https://wa.me/${STORE.whatsapp}?text=${encodeURIComponent(message)}`;
+
+    window.open(whatsappURL, "_blank", "noopener,noreferrer");
+  });
+}
+
+/* ==========================================
+   MOBILE NAVIGATION
+   ========================================== */
+
+function setupMobileMenu() {
+  const toggle = $("menuToggle");
+  const nav = $("navLinks");
+
+  if (!toggle || !nav) return;
+
+  toggle.addEventListener("click", () => {
+    const isOpen = nav.classList.toggle("open");
+
+    toggle.setAttribute("aria-expanded", String(isOpen));
+  });
+
+  nav.querySelectorAll("a").forEach(link => {
+    link.addEventListener("click", () => {
+      nav.classList.remove("open");
+      toggle.setAttribute("aria-expanded", "false");
+    });
+  });
+
+  document.addEventListener("click", event => {
+    if (
+      nav.classList.contains("open") &&
+      !nav.contains(event.target) &&
+      !toggle.contains(event.target)
+    ) {
+      nav.classList.remove("open");
+      toggle.setAttribute("aria-expanded", "false");
+    }
+  });
+}
+
+/* ==========================================
+   CONTINUE SHOPPING
+   ========================================== */
+
+function setupContinueShopping() {
+  $("continueShopping")?.addEventListener("click", () => {
+    closeCart();
+    $("shop")?.scrollIntoView({ behavior: "smooth" });
+  });
+}
+
+/* ==========================================
+   WHATSAPP BUTTON
+   ========================================== */
+
+function setupWhatsApp() {
+  const button = $("whatsappButton");
+
+  if (!button) return;
+
+  button.href = `https://wa.me/${STORE.whatsapp}`;
+  button.target = "_blank";
+  button.rel = "noopener noreferrer";
+}
+
+/* ==========================================
+   IMAGE FALLBACKS
+   ========================================== */
+
+function setupStaticImageFallbacks() {
+  document.querySelectorAll("img:not([data-fallback])").forEach(img => {
+    if (img.dataset.staticFallbackReady) return;
+
+    img.dataset.staticFallbackReady = "true";
+
+    img.addEventListener("error", function () {
+      this.onerror = null;
+      this.src = FALLBACK_IMAGE;
+    }, { once: true });
+  });
+}
+
+/* ==========================================
+   GENERAL EVENTS
+   ========================================== */
+
+function setupStoreEvents() {
+  $("openCart")?.addEventListener("click", openCart);
+  $("closeCart")?.addEventListener("click", closeCart);
+  $("cartOverlay")?.addEventListener("click", closeCart);
+
+  $("checkoutButton")?.addEventListener("click", openCheckout);
+
+  $("closeProductModal")?.addEventListener(
+    "click",
+    closeProductModal
+  );
+
+  $("closeCheckout")?.addEventListener(
+    "click",
+    closeCheckout
+  );
+
+  $("productModal")?.addEventListener("click", event => {
+    if (event.target.id === "productModal") {
+      closeProductModal();
+    }
+  });
+
+  $("checkoutModal")?.addEventListener("click", event => {
+    if (event.target.id === "checkoutModal") {
+      closeCheckout();
+    }
+  });
+
+  document.addEventListener("keydown", event => {
+    if (event.key === "Escape") {
+      closeCart();
+      closeProductModal();
+      closeCheckout();
+    }
+  });
+}
+
+/* ==========================================
+   FOOTER YEAR
+   ========================================== */
+
+function setupFooterYear() {
+  if ($("year")) {
+    $("year").textContent = new Date().getFullYear();
+  }
+}
+
+/* ==========================================
+   START CENT AFFAIR
+   ========================================== */
+
+document.addEventListener("DOMContentLoaded", () => {
+  renderProducts();
+  renderCart();
+
+  setupFilters();
+  setupSearch();
+  setupCollections();
+
+  setupCheckout();
+  setupMobileMenu();
+  setupContinueShopping();
+  setupWhatsApp();
+
+  setupStoreEvents();
+  setupFooterYear();
+
+  setupStaticImageFallbacks();
+  setImageFallbacks();
+
+  console.log("CENT AFFAIR — The Art of Fragrance — Ready.");
 });
-
-// FOOTER YEAR AND INITIAL DISPLAY
-
-$("year").textContent = new Date().getFullYear();
-
-renderProducts();
-renderCart();
